@@ -39,7 +39,7 @@ const server = (app) => {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(morgan(morganMode));
     app.use(cors());
-    // app.use('/', routes);
+    app.use('/', routes);
 }
 
 module.exports = server;
