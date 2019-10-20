@@ -25,7 +25,8 @@ const {
  * @param {*} app Basic Express app
  */
 const server = (app) => {
-    mongoose.connect(mongoDB , (err) => {
+    //mongoose.connection(mongoDB, { useNewUrlParser: true });
+    mongoose.connect(mongoDB , { useNewUrlParser: true, useUnifiedTopology: true  }, (err) => {
         if (err) {
             console.log(err);
             return console.log('Error while connecting to database');

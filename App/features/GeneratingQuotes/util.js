@@ -1,5 +1,10 @@
 let axios = require("axios");
 
+const ImageSearchAPIClient = require('azure-cognitiveservices-imagesearch');
+const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
+
+let quoteModel = require('./model');
+
 async function generateQuote(){
     const response = await axios({
         "method":"GET",
@@ -17,22 +22,53 @@ async function generateQuote(){
     return response.data[0].quote;
 }
 
-async function generateImageFromText(){
-    const response = await axios({
-        "method":"GET",
-        "url":"https://pixabay.com/api/",
-        "params":{
-            "key":"14005004-0c82c985687a5a13b9ff0fe84",
-            "q":"happiness"
-        }
+async function generateImageFromText(quote){
+    let serviceKey = "38448ff158a9473fa9534b7cce77fc6f";
+    let credentials = new CognitiveServicesCredentials(serviceKey);
+    let imageSearchApiClient = new ImageSearchAPIClient(credentials);
+    let imageResults = await imageSearchApiClient.imagesOperations.search(quote);
+    let firstImageResult = imageResults.value[1].contentUrl;
+    return firstImageResult;
+}
+
+async function generateImageFromQuote(){
+    let quote = await generateQuote();
+    let image = await generateImageFromText(quote);
+    let quoteWithImage = {
+        quote,
+        image
+    }
+    let quoteSaved = new quoteModel(quoteWithImage).save(); 
+    return quoteSaved;
+}
+
+function deleteQuote(id){
+    return new Promise((resolve, reject) => {
+        quoteModel.findByIdAndRemove({
+            "_id": id
+        },
+        function(err, doc) {
+            if (err) {
+                reject(err);
+            }
+            resolve(doc);
+        });
+    });
+}
+
+function getQuote(id){
+    return new Promise((resolve, reject) => {
+        quoteModel.findOne({
+            "_id": id
+        },
+        function(err, doc){
+            if (err){
+                reject(err);
+            }
+            resolve(doc);
+        })
     })
-    console.log(response.data);
-    return response.data.hits[0].largeImageURL;
-
 }
 
-async function generateImageFromQuote(text){
 
-}
-
-module.exports = { generateQuote, generateImageFromText };
+module.exports = { generateQuote, generateImageFromText, generateImageFromQuote };
