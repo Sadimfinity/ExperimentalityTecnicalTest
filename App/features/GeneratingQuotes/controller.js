@@ -1,7 +1,8 @@
 const httpStatus = require('http-status');
 
 const {
-    generateQuote
+    generateQuote,
+    generateImageFromText
 } = require('./util');
 
 async function generate(req, res){
@@ -15,6 +16,12 @@ async function generate(req, res){
     // )
 }
 
+async function generateImage(req, res){
+    let response = await generateImageFromText();
+    return res.status(httpStatus.OK).send(response);
+}
+
 module.exports = {
-    generate
+    generate,
+    generateImage
 }
