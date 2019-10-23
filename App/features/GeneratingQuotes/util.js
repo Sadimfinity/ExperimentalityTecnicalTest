@@ -3,7 +3,7 @@ let axios = require("axios");
 const ImageSearchAPIClient = require('azure-cognitiveservices-imagesearch');
 const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
 
-let quoteModel = require('./model');
+let { quoteModel } = require('./model');
 
 async function generateQuote(){
     const response = await axios({
@@ -38,6 +38,7 @@ async function generateImageFromQuote(){
         quote,
         image
     }
+    console.log(quoteWithImage);
     let quoteSaved = new quoteModel(quoteWithImage).save(); 
     return quoteSaved;
 }
