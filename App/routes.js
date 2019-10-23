@@ -1,13 +1,13 @@
-// /**
-//  * Router import
-//  */
-// const Router = require('express').Router;
-// let router = new Router();
+/**
+ * Router import
+ */
+const Router = require('express').Router;
+let router = new Router();
+let quote = require('./features/GeneratingQuotes/route')
 
-// /**
-//  * References to the other routers of each resource
-//  */
-// let resource = require('urlToResource');
+router.use('/', quote);
+
+module.exports = router;
 
 // /**
 //  * Paths defined to each resource
