@@ -25,21 +25,19 @@ const {
  * @param {*} app Basic Express app
  */
 const server = (app) => {
-    mongoose.connect(mongoDB , (err) => {
+    mongoose.connect(mongoDB , { useNewUrlParser: true, useUnifiedTopology: true  }, (err) => {
         if (err) {
-            console.log(err);
             return console.log('Error while connecting to database');
         }
         console.log('Succesfull database connection!');
     });
 
     app.set('port', port);
-
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(morgan(morganMode));
     app.use(cors());
-    // app.use('/', routes);
+    app.use('/', routes);
 }
 
 module.exports = server;
