@@ -38,7 +38,6 @@ async function generateImageFromQuote(){
         quote,
         image
     }
-    console.log(quoteWithImage);
     let quoteSaved = new quoteModel(quoteWithImage).save(); 
     return quoteSaved;
 }

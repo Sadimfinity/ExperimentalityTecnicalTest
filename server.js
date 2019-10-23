@@ -27,7 +27,6 @@ const {
 const server = (app) => {
     mongoose.connect(mongoDB , { useNewUrlParser: true, useUnifiedTopology: true  }, (err) => {
         if (err) {
-            console.log(err);
             return console.log('Error while connecting to database');
         }
         console.log('Succesfull database connection!');

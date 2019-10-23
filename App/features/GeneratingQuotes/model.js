@@ -18,7 +18,7 @@ function deleteQuote(id){
     return new Promise((resolve, reject) => {
         quoteModel.findByIdAndRemove({
             "_id": id
-        },
+        }, {useFindAndModify: false},
         function(err, doc) {
             if (err) {
                 reject(err);
