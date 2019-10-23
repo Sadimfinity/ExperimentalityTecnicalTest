@@ -25,7 +25,6 @@ const {
  * @param {*} app Basic Express app
  */
 const server = (app) => {
-    //mongoose.connection(mongoDB, { useNewUrlParser: true });
     mongoose.connect(mongoDB , { useNewUrlParser: true, useUnifiedTopology: true  }, (err) => {
         if (err) {
             console.log(err);
@@ -35,7 +34,6 @@ const server = (app) => {
     });
 
     app.set('port', port);
-
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(morgan(morganMode));

@@ -42,33 +42,4 @@ async function generateImageFromQuote(){
     return quoteSaved;
 }
 
-function deleteQuote(id){
-    return new Promise((resolve, reject) => {
-        quoteModel.findByIdAndRemove({
-            "_id": id
-        },
-        function(err, doc) {
-            if (err) {
-                reject(err);
-            }
-            resolve(doc);
-        });
-    });
-}
-
-function getQuote(id){
-    return new Promise((resolve, reject) => {
-        quoteModel.findOne({
-            "_id": id
-        },
-        function(err, doc){
-            if (err){
-                reject(err);
-            }
-            resolve(doc);
-        })
-    })
-}
-
-
-module.exports = { generateQuote, generateImageFromText, generateImageFromQuote };
+module.exports = { generateImageFromQuote };
