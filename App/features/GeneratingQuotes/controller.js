@@ -29,9 +29,9 @@ async function deleteQuoteById(req, res){
     let id = req.params.id;
     let response = await deleteQuote(id);
     if(response){
-        return res.status(httpStatus.NOT_FOUND).send({message: 'No se ha podido borrar el registro de la'})
+        return res.status(httpStatus.OK).send(response);
     } else {
-
+        return res.status(httpStatus.NOT_FOUND).send({message: 'No se ha podido borrar el registro de la base de datos'})
     }
 }
 
