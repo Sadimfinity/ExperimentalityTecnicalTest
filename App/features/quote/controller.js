@@ -1,7 +1,6 @@
 /**
  * NPM packages
  */
-
 const httpStatus = require('http-status');
 
 /**

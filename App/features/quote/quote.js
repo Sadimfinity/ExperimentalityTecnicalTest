@@ -1,7 +1,6 @@
 /**
  * NPM packages
  */
-
 const axios = require("axios");
 const ImageSearchAPIClient = require('azure-cognitiveservices-imagesearch');
 const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
@@ -9,7 +8,6 @@ const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesC
 /**
  *  Import quote model 
  */
-
 let quoteModel = require('./model');
 
 

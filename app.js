@@ -1,6 +1,16 @@
+/**
+ * NPM packages
+ */
 const express = require('express');
+
+/**
+ *  Imports the server of server.js 
+ */
 const server = require('./server');
 
+/**
+ * Initializes the express server
+ */
 let app = new express();
 server(app);
 

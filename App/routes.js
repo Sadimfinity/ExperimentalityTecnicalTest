@@ -1,9 +1,14 @@
 /**
- * Router import
+ * NPM packages
  */
 const Router = require('express').Router;
+
+/**
+ * Import the different routes of the features
+ */
+let quote = require('./features/quote/route');
+
 let router = new Router();
-let quote = require('./features/quote/route')
 
 router.use('/api/v1/', quote);
 
