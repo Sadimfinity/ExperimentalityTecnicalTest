@@ -1,10 +1,21 @@
-let axios = require("axios");
+/**
+ * NPM packages
+ */
 
+const axios = require("axios");
 const ImageSearchAPIClient = require('azure-cognitiveservices-imagesearch');
 const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
 
-let { quoteModel } = require('./model');
+/**
+ *  Import quote model 
+ */
 
+let quoteModel = require('./model');
+
+
+/**
+ * This method consumes the Random Famous Quotes API to generates, as the name says, a random famous quote and return the first value
+ */
 async function generateQuote(){
     const response = await axios({
         "method":"GET",
@@ -19,9 +30,14 @@ async function generateQuote(){
             "count":"1"
         }
         })
-    return response.data[0].quote;
+    let firstQuoteResult = response.data[0].quote;
+    return firstQuoteResult;
 }
 
+/**
+ * This method consumes the Bing Image API to generate an image related with the parameter 'quote' 
+ * @param {String} quote The parameter 'quote' contains the necesary text to consume the Bing API, returning a image asociated with the text
+ */
 async function generateImageFromText(quote){
     let serviceKey = "38448ff158a9473fa9534b7cce77fc6f";
     let credentials = new CognitiveServicesCredentials(serviceKey);
@@ -31,6 +47,10 @@ async function generateImageFromText(quote){
     return firstImageResult;
 }
 
+/**
+ * This method uses the two previous methods to relate an random famous generated quote to an image and save this to a database
+ */
+
 async function generateImageFromQuote(){
     let quote = await generateQuote();
     let image = await generateImageFromText(quote);
@@ -38,7 +58,7 @@ async function generateImageFromQuote(){
         quote,
         image
     }
-    let quoteSaved = new quoteModel(quoteWithImage).save(); 
+    let quoteSaved = new quoteModel(quoteWithImage).save();         //The quote with image is stored on database
     return quoteSaved;
 }
 
