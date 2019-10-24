@@ -1,19 +1,12 @@
-const mongoose = require('mongoose');
+/**
+ *  Import quote model 
+ */
+let quoteModel = require('./model');
 
-let quote = {
-    quote: {
-        type: String,
-        required: true
-    },
-    image: {
-        type: String,
-        required: true
-    }
-}
-
-let quoteSchema = new mongoose.Schema(quote);
-let quoteModel = mongoose.model('Quote', quoteSchema);
-
+/**
+ * Query the mongo database using the parameter id to delete a record
+ * @param {String} id The id of some record saved on database
+ */
 function deleteQuote(id){
     return new Promise((resolve, reject) => {
         quoteModel.findByIdAndRemove({
@@ -28,6 +21,10 @@ function deleteQuote(id){
     });
 }
 
+/**
+ * Query the mongo database using the parameter id to bring a record
+ * @param {String} id The id of some record saved on database
+ */
 function getQuote(id){
     return new Promise((resolve, reject) => {
         quoteModel.findOne({
@@ -42,5 +39,4 @@ function getQuote(id){
     })
 }
 
-
-module.exports = {quoteModel, deleteQuote, getQuote};
+module.exports = { getQuote, deleteQuote }
