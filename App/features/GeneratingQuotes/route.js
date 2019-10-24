@@ -12,12 +12,12 @@ router.route('/api/v1/generate-changing-life-quote')
         generateImageByQuote(req, res);
     })
 
-router.route('/api/v1/getQuote/:id')
+router.route('/api/v1/get-record/:id')
     .get((req,res) => {
         getQuoteById(req, res);
     })
 
-router.route('/api/v1/deleteQuote/:id')
+router.route('/api/v1/delete-record/:id')
     .delete((req,res) => {
         deleteQuoteById(req, res);
     })

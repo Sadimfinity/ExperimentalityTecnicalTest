@@ -7,39 +7,54 @@ const {
 const {
     getQuote,
     deleteQuote
-} = require('./model')
+} = require('./model');
 
 
 async function generateImageByQuote(req, res) {
-    let response = await generateImageFromQuote();
-    return res.status(httpStatus.OK).send(response);
+    try {
+        let newQuote = await generateImageFromQuote();
+        return res.status(httpStatus.OK).send(newQuote);
+    }
+    catch (err) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR)
+    }
 }
 
 async function getQuoteById(req, res) {
-    let id = req.params.id;
-    if (idIsCorrect(id)) {
-        let response = await getQuote(id);
-        if (response) {
-            return res.status(httpStatus.OK).send(response);
-        } else {
-            return res.status(httpStatus.NOT_FOUND).send({ message: 'El registro no existe en la base de datos.' })
+    let idQuote = req.params.id;
+    if (idIsCorrect(idQuote)) {
+        try {
+            let response = await getQuote(idQuote);
+            if (response) {
+                return res.status(httpStatus.OK).send(response);
+            } else {
+                return res.status(httpStatus.NOT_FOUND).send({ message: 'El registro no existe en la base de datos.' });
+            }
+        }
+        catch (err) {
+            return res.status(httpStatus.NOT_FOUND).send({ message: 'El registro no existe en la base de datos.' });
         }
     } else {
-        return res.status(httpStatus.BAD_REQUEST).send({ message: 'Ingrese un id correcto' })
+        return res.status(httpStatus.BAD_REQUEST).send({ message: 'Ingrese un id correcto' });
     }
 }
 
 async function deleteQuoteById(req, res) {
     let id = req.params.id;
     if (idIsCorrect(id)) {
-        let response = await deleteQuote(id);
-        if (response) {
-            return res.status(httpStatus.OK).send(response);
-        } else {
-            return res.status(httpStatus.NOT_FOUND).send({ message: 'No se ha podido borrar el registro de la base de datos' })
+        try {
+            let response = await deleteQuote(id);
+            if (response) {
+                return res.status(httpStatus.OK).send(response);
+            } else {
+                return res.status(httpStatus.NOT_FOUND).send({ message: 'No se ha podido borrar el registro de la base de datos' });
+            }
+        }
+        catch (err) {
+            return res.status(httpStatus.NOT_FOUND).send({ message: 'No se ha podido borrar el registro de la base de datos' });
         }
     } else {
-        return res.status(httpStatus.BAD_REQUEST).send({ message: 'Ingrese un id correcto' })
+        return res.status(httpStatus.BAD_REQUEST).send({ message: 'Ingrese un id correcto' });
     }
 }
 

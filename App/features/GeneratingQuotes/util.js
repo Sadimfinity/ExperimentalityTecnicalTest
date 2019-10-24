@@ -1,4 +1,4 @@
-let axios = require("axios");
+const axios = require("axios");
 
 const ImageSearchAPIClient = require('azure-cognitiveservices-imagesearch');
 const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
